@@ -169,7 +169,6 @@ namespace DiosesModernos {
 
         void Start () {
             transform.position = new Vector3 (Random.Range (-20, 20), 1, Random.Range (-20, 20));
-            GameManager.instance.boss.AddTarget (transform);
         }
 
         void Update () {
@@ -194,7 +193,7 @@ namespace DiosesModernos {
 
             #region Crystal cast
             if (Input.GetButtonDown ("Fire2")) {
-                Instantiate (_crystalPrefab, transform.position - transform.forward * _crystalDistance, Quaternion.identity);
+                ObjectPool.Spawn (_crystalPrefab, transform.position + transform.forward * _crystalDistance, Quaternion.identity);
             }
             #endregion
         }
@@ -256,9 +255,6 @@ namespace DiosesModernos {
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             do {
                 if (Time.time - _lastShoot >= _shootDelay / TimeManager.instance.timeScale) {
-                    if (MultiplayerManager.instance.online) {
-                        MultiplayerManager.instance.SendPlayerShoot ();
-                    }
                     Shoot ();
                     _lastShoot = Time.time;
                 }

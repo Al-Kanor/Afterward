@@ -38,7 +38,6 @@ namespace DiosesModernos {
 
         #region API
         public void AddTarget (Transform target) {
-            if (MultiplayerManager.instance.online) return;
             _targets.Add (target);
             if (1 == _targets.Count) {
                 // First target
@@ -47,7 +46,6 @@ namespace DiosesModernos {
         }
 
         public void RemoveTarget (Transform target) {
-            if (MultiplayerManager.instance.online) return;
             _targets.Remove (target);
             if (0 == _targets.Count) {
                 // No more target !
@@ -62,7 +60,6 @@ namespace DiosesModernos {
 
         public override void TakeDamage (int damage) {
             base.TakeDamage (damage);
-            if (MultiplayerManager.instance.online) MultiplayerManager.instance.SendBossDamage (damage);
         }
         #endregion
 
@@ -73,7 +70,6 @@ namespace DiosesModernos {
 
         void Start () {
             _target = GameManager.instance.player.transform;
-            if (MultiplayerManager.instance.online) StartCoroutine ("UpdateTarget");
         }
         #endregion
 

@@ -59,9 +59,7 @@ namespace DiosesModernos {
         }
 
         public virtual void TakeDamage (int damage) {
-            if (!MultiplayerManager.instance.online) {
-                health = Mathf.Clamp (_health, 0, _health - damage);
-            }
+            health = Mathf.Clamp (_health, 0, _health - damage);
         }
         #endregion
 
