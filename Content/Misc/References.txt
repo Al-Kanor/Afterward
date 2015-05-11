@@ -1,0 +1,11 @@
+- 	Transistor pour son mixe de tactical et d'action-RPG avec des mécaniques assez efficaces.
+- 	Final Fantasy Crystal Chronicles pour son approche simple mais efficace de l'action-RPG (des combos simples, le système de visée pour les sorts, le binding
+	etc...). Ca peut être une bonne référence pour voir comment réduire notre scope 3C à son minimum en cas de besoin. Dans le même genre mais en plus complexe
+	il y a aussi The Witch and the Hundred Knights.
+- 	Diablo 3 / Torchlight 2 pour le ressenti des coups (FX, screenshake etc...). On pourrait aussi aussi dire Dota 2 et LoL on a moins ce côté percutant. L'idée
+	serait aussi de donner cette sensation de choc lors d'un coup (voire utiliser des forces pour certaines attaques pour avoir ce ressenti de recul physiqué).
+- 	Lara Croft and the Guardian of Light pour l'aspect plus plateforme avec des puzzles.
+- 	Halo Spartan Assault pour la façon dont ils exploitent la caméra top-down pour mettre en valeur l'environnement et montrer des scènes en arrière plan des
+	falaises.
+- 	Pour le dynamisme des mouvements c'est plus difficile de trouver des références dans le genre, mais on pourrait s’inspirer de certains persos de Dota et Lol
+	qui ont des skills qui leur donnent une grande mobilité, aussi du dash-attack de Astebreed etc...
