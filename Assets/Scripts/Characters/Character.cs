@@ -6,6 +6,10 @@ namespace DiosesModernos {
         #region Properties
         [Header ("Configuration")]
         [SerializeField]
+        [Tooltip ("Targeting priority for the camera")]
+        [Range (0, 100)]
+        int _cameraWeight = 1;
+        [SerializeField]
         [Tooltip ("Life points of the character")]
         [Range (0.0f, 1000.0f)]
         protected int _health = 100;
@@ -35,6 +39,9 @@ namespace DiosesModernos {
         #endregion
 
         #region Getters
+        public int cameraWeight {
+            get { return _cameraWeight; }
+        }
         public virtual int health {
             get { return _health; }
             set {

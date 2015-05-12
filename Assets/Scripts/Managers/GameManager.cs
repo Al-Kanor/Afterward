@@ -28,6 +28,10 @@ namespace DiosesModernos {
             get { return _difficulty; }
         }
 
+        public ArrayList enemies {
+            get { return _enemies; }
+        }
+
         public Player player {
             get { return _player; }
         }
@@ -43,6 +47,15 @@ namespace DiosesModernos {
         #endregion
 
         #region API
+        public void AddEnemy (Enemy enemy) {
+            if (null == enemy) return;
+            _enemies.Add (enemy);
+        }
+
+        public void Awake () {
+            _enemies = new ArrayList ();
+        }
+
         public void ResetGame () {
             Application.LoadLevel (Application.loadedLevel);
         }
@@ -57,6 +70,7 @@ namespace DiosesModernos {
 
         #region Private properties
         int _score = 0;
+        ArrayList _enemies;
         #endregion
     }
 }

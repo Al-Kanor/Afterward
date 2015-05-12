@@ -3,14 +3,8 @@ using System.Collections;
 using XInputDotNetPure;
 
 namespace DiosesModernos {
-    public class Player : PlayableCharacter {
+    public class Player : Character {
         #region Properties
-        [Header ("Time Scaling")]
-        [SerializeField]
-        [Tooltip ("Base energy spent with time scaling skill")]
-        [Range (0.0f, 10f)]
-        float _timeEnergyCost = 1;
-
         [Header ("Dash")]
         [SerializeField]
         [Tooltip ("Speed while dashing (a too high value can let the player dash trough walls)")]
@@ -168,7 +162,7 @@ namespace DiosesModernos {
         }
 
         void Start () {
-            transform.position = new Vector3 (Random.Range (-20, 20), 1, Random.Range (-20, 20));
+            transform.position = new Vector3 (Random.Range (-20, 20), 0.5f, Random.Range (-20, 20));
         }
 
         void Update () {

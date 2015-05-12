@@ -2,9 +2,9 @@
 using System.Collections;
 
 namespace DiosesModernos {
-    public class MainCamera : MonoBehaviour {
+    public class TargetingCamera : MonoBehaviour {
         #region Properties
-        [Header ("General")]
+        [Header ("Configuration")]
         [SerializeField]
         [Tooltip ("Speed of the camera")]
         [Range (0.0f, 100.0f)]

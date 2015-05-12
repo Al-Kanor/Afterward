@@ -1,0 +1,7 @@
+Camera Afterward
+
+Chaque personnage a un poid
+Le joueur a un poid beaucoup plus important
+(ex : ennemi 1, joueur 10)
+La position de la camera correspond à la position moyenne pondérée de chaque perso
+La nouvelle position est calculée en temps réel, la caméra se déplace vers la position calculée

@@ -23,6 +23,9 @@ namespace DiosesModernos {
 
         [Header ("Links")]
         [SerializeField]
+        [Tooltip ("Enemy prefab")]
+        GameObject _enemyPrefab;
+        [SerializeField]
         [Tooltip ("Turret prefab")]
         GameObject _turretPrefab;
         #endregion
@@ -36,10 +39,17 @@ namespace DiosesModernos {
         #region Private methods
         IEnumerator UpdateSpawn () {
             do {
-                ObjectPool.Spawn (
+                /*ObjectPool.Spawn (
                     _turretPrefab,
                     new Vector3 (Random.Range (_spawnXMin, _spawnXMax), 1, Random.Range (_spawnZMin, _spawnZMax)),
                     Quaternion.Euler (Vector3.up * Random.Range (-180, 180))
+                );*/
+                GameManager.instance.AddEnemy (
+                    ObjectPool.Spawn (
+                        _enemyPrefab,
+                        new Vector3 (Random.Range (_spawnXMin, _spawnXMax), 0.25f, Random.Range (_spawnZMin, _spawnZMax)),
+                        Quaternion.Euler (Vector3.up * Random.Range (-180, 180))
+                    ).GetComponent<Enemy> ()
                 );
                 yield return new WaitForSeconds (_spawnDelay / TimeManager.instance.timeScale);
             } while (true);
