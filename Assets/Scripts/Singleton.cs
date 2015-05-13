@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
         #region Getters
         public static T instance {

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class GuiManager : Singleton<GuiManager> {
         #region Properties
         [Header ("Links")]

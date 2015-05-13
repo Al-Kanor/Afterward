@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class Crystal : MonoBehaviour {
         #region Properties
         [Header ("General")]
@@ -17,6 +17,14 @@ namespace DiosesModernos {
         }
 
         void OnTriggerEnter (Collider collider) {
+            switch (collider.tag) {
+                case "Crystal":
+                    return;
+                case "Enemy":
+                    GameManager.instance.enemies.Remove (collider.GetComponent<Enemy> ());
+                    collider.gameObject.Recycle ();
+                    break;
+            }
             gameObject.Recycle ();
         }
         #endregion

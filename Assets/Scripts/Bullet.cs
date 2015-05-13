@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class Bullet : MonoBehaviour {
         #region Properties
         [Header ("General")]
@@ -54,7 +54,8 @@ namespace DiosesModernos {
                         collision.gameObject.GetComponent<Boss> ().TakeDamage (damage);
                         break;
                     case "Enemy":
-                        collision.transform.parent.Recycle ();
+                        GameManager.instance.enemies.Remove (collision.gameObject.GetComponent<Enemy> ());
+                        collision.transform.Recycle ();
                         break;
                     case "Player":
                         //GameManager.instance.ResetGame ();

@@ -2,7 +2,7 @@
 using System.Collections;
 using XInputDotNetPure;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class InputManager : Singleton<InputManager> {
         #region Properties
         [Header ("Configuration")]

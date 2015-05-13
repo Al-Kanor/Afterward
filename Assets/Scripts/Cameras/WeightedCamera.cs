@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class WeightedCamera : MonoBehaviour {
         #region Properties
         [Header ("Configuration")]
@@ -38,10 +38,10 @@ namespace DiosesModernos {
         #region Private methods
         void UpdateTargetPosition () {
             Player player = GameManager.instance.player;
-            float x = player.transform.position.x * player.cameraWeight;
-            float z = player.transform.position.z * player.cameraWeight;
             ArrayList enemies = GameManager.instance.enemies;
-            int totalWeight = 1;
+            int totalWeight = player.cameraWeight * enemies.Count;
+            float x = player.transform.position.x * totalWeight;
+            float z = player.transform.position.z * totalWeight;
             foreach (Enemy enemy in enemies) {
                 x += enemy.transform.position.x * enemy.cameraWeight;
                 z += enemy.transform.position.z * enemy.cameraWeight;

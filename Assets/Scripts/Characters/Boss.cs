@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class Boss : Enemy {
         #region Properties
         [Header ("Configuration")]

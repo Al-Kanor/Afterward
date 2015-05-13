@@ -2,7 +2,7 @@
 using System.Collections;
 using XInputDotNetPure;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class Player : Character {
         #region Properties
         [Header ("Dash")]
@@ -25,6 +25,20 @@ namespace DiosesModernos {
         [SerializeField]
         [Tooltip ("Dash particles")]
         GameObject _dashParticlesPrefab;
+
+        [Header ("Physical Attack")]
+        [SerializeField]
+        [Tooltip ("")]
+        float _attackStrength = 1000;
+        [SerializeField]
+        [Tooltip ("")]
+        float _attackRadius = 4;
+        [SerializeField]
+        [Tooltip ("")]
+        float _attackCooldown = 2;
+        [SerializeField]
+        [Tooltip ("Attack particles")]
+        ParticleSystem _attackParticles;
 
         [Header ("Shoot")]
         [SerializeField]
@@ -166,6 +180,12 @@ namespace DiosesModernos {
         }
 
         void Update () {
+            #region Attack
+            if (!_isAttacking && Input.GetButtonDown ("Attack")) {
+                StartCoroutine ("Attack");
+            }
+            #endregion
+
             #region Time scale reset
             if (Input.GetButtonDown ("Time Down")) {
                 if (Time.time - _lastTimeDownTap <= InputManager.instance.doubleTapDelay) {
@@ -197,6 +217,8 @@ namespace DiosesModernos {
         // Current player energy (%)
         float _energy = 100;
 
+        bool _isAttacking = false;
+
         bool _isDashing = false;
         float _lastDash = 0;
         Vector3 _dashDirection;
@@ -214,6 +236,18 @@ namespace DiosesModernos {
         #endregion
 
         #region Private methods
+        IEnumerator Attack () {
+            _isAttacking = true;
+            _attackParticles.Play ();
+            Collider[] colliders = Physics.OverlapSphere (transform.position, _attackRadius);
+            foreach (Collider collider in colliders) {
+                Rigidbody rb = collider.GetComponent<Rigidbody> ();
+                if (null != rb) rb.AddExplosionForce (_attackStrength, transform.position, _attackRadius);
+            }
+            yield return new WaitForSeconds (_attackCooldown);
+            _isAttacking = false;
+        }
+
         IEnumerator Dash () {
             if (Time.time - _lastDash >= _dashDelay / TimeManager.instance.timeScale) {
                 _lastDash = Time.time;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace DiosesModernos {
+namespace Afterward {
     public class Turret : MonoBehaviour {
         #region properties
         [Header ("Configuration")]
