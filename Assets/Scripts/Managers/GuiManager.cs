@@ -6,12 +6,15 @@ namespace Afterward {
     public class GuiManager : Singleton<GuiManager> {
         #region Properties
         [Header ("Links")]
-        [SerializeField]
+        /*[SerializeField]
         [Tooltip ("Score text")]
-        Text scoreText;
+        Text _scoreText;*/
+        [SerializeField]
+        [Tooltip ("Energy text")]
+        Text _energyText;
         [SerializeField]
         [Tooltip ("Play button")]
-        Button playButton;
+        Button _playButton;
         /*[SerializeField]
         [Tooltip ("Time bar UI")]
         Image _timeBarUI;
@@ -23,12 +26,17 @@ namespace Afterward {
         #region API
         public void UpdateAll () {
             LanguageManager lm = LanguageManager.instance;
-            playButton.transform.GetChild (0).GetComponent<Text> ().text = lm.GetText ("play");
-            UpdateScore ();
+            _playButton.transform.GetChild (0).GetComponent<Text> ().text = lm.GetText ("play");
+            UpdateEnergy ();
+            //UpdateScore ();
+        }
+
+        public void UpdateEnergy () {
+            _energyText.text = GameManager.instance.player.energy.ToString ();
         }
 
         public void UpdateScore () {
-            scoreText.text = LanguageManager.instance.GetText ("kills") + " : " + GameManager.instance.score;
+            //_scoreText.text = LanguageManager.instance.GetText ("kills") + " : " + GameManager.instance.score;
         }
         #endregion
 

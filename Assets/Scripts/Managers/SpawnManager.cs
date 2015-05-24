@@ -6,7 +6,12 @@ namespace Afterward {
         #region Properties
         [Header ("Configuration")]
         [SerializeField]
+        [Tooltip ("Maximal number of simultaneous enemies")]
+        [Range (0, 50)]
+        float _nbEnemiesMax = 10;
+        [SerializeField]
         [Tooltip ("Delay between two spawns")]
+        [Range (0, 10)]
         float _spawnDelay = 1;
         [SerializeField]
         [Tooltip ("Spawn X min")]
@@ -36,21 +41,22 @@ namespace Afterward {
         }
         #endregion
 
+        #region Private properties
+        float _nbEnemies = 0;
+        #endregion
+
         #region Private methods
         IEnumerator UpdateSpawn () {
             do {
-                /*ObjectPool.Spawn (
-                    _turretPrefab,
-                    new Vector3 (Random.Range (_spawnXMin, _spawnXMax), 1, Random.Range (_spawnZMin, _spawnZMax)),
-                    Quaternion.Euler (Vector3.up * Random.Range (-180, 180))
-                );*/
-                GameManager.instance.AddEnemy (
-                    ObjectPool.Spawn (
-                        _enemyPrefab,
-                        new Vector3 (Random.Range (_spawnXMin, _spawnXMax), 0.25f, Random.Range (_spawnZMin, _spawnZMax)),
-                        Quaternion.Euler (Vector3.up * Random.Range (-180, 180))
-                    ).GetComponent<Enemy> ()
-                );
+                if (GameManager.instance.enemies.Count < _nbEnemiesMax) {
+                    GameManager.instance.AddEnemy (
+                        ObjectPool.Spawn (
+                            _enemyPrefab,
+                            new Vector3 (Random.Range (_spawnXMin, _spawnXMax), 0.25f, Random.Range (_spawnZMin, _spawnZMax)),
+                            Quaternion.Euler (Vector3.up * Random.Range (-180, 180))
+                        ).GetComponent<Enemy> ()
+                    );
+                }
                 yield return new WaitForSeconds (_spawnDelay / TimeManager.instance.timeScale);
             } while (true);
         }

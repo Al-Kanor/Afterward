@@ -46,6 +46,10 @@ namespace Afterward {
             get { return _health; }
             set {
                 _health = value;
+                if (0 == _health) {
+                    GameManager.instance.enemies.Remove (this);
+                    gameObject.Recycle ();
+                }
             }
         }
         #endregion

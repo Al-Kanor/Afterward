@@ -12,6 +12,7 @@ namespace Afterward {
         #region API
         public void PlayAttackParticles (Vector3 pos) {
             //ObjectPool.Spawn (_attackParticles, pos, Quaternion.identity);
+            Destroy (GameObject.Instantiate (_attackParticles, pos, Quaternion.identity), 1);
         }
         #endregion
     }

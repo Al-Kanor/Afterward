@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using XInputDotNetPure;
 
 namespace Afterward {
     public class Player : Character {
         #region Properties
+        [Header ("Energy System")]
+        [SerializeField]
+        [Tooltip ("Energy of the player")]
+        [Range (0, 100)]
+        float _energy = 20;
+
         [Header ("Dash")]
         [SerializeField]
         [Tooltip ("Speed while dashing (a too high value can let the player dash trough walls)")]
@@ -17,7 +24,15 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Seconds between two dashes")]
         [Range (0.0f, 3.0f)]
-        float _dashDelay = 0.24f;
+        float _dashDelay = 1f;
+        [SerializeField]
+        [Tooltip ("Delay when player starts dashing")]
+        [Range (0.0f, 1.0f)]
+        float _dashStartDelay = 0.24f;
+        [SerializeField]
+        [Tooltip ("Delay when player ends dashing")]
+        [Range (0.0f, 1.0f)]
+        float _dashEndDelay = 0.24f;
         [SerializeField]
         [Tooltip ("Duration of the particles emitted by a dash")]
         [Range (0.0f, 5.0f)]
@@ -27,33 +42,30 @@ namespace Afterward {
         GameObject _dashParticlesPrefab;
 
         [Header ("Physical Attack")]
-        [SerializeField]
+        /*[SerializeField]
         [Tooltip ("")]
         float _attackStrength = 1000;
         [SerializeField]
         [Tooltip ("")]
-        float _attackRadius = 4;
+        float _attackRadius = 4;*/
         [SerializeField]
-        [Tooltip ("")]
-        float _attackCooldown = 2;
+        [Tooltip ("Attack Duration")]
+        float _attackDuration = 0.2f;
+        [SerializeField]
+        [Tooltip ("Attack Cooldown")]
+        float _attackCooldown = 1;
+        [SerializeField]
+        [Tooltip ("Attack zone")]
+        GameObject _attackZone;
         [SerializeField]
         [Tooltip ("Attack particles")]
         ParticleSystem _attackParticles;
 
-        [Header ("Shoot")]
+        /*[Header ("Shoot")]
         [SerializeField]
         [Tooltip ("Seconds between two shoots")]
         [Range (0.0f, 1.0f)]
-        float _shootDelay = 0.1f;
-
-        [Header ("Crystals")]
-        [SerializeField]
-        [Tooltip ("Distance between the player and the cristals casted")]
-        [Range (0.0f, 10.0f)]
-        float _crystalDistance = 1;
-        [SerializeField]
-        [Tooltip ("Crystal casted by the player")]
-        GameObject _crystalPrefab;
+        float _shootDelay = 0.1f;*/
 
         [Header ("Links")]
         [SerializeField]
@@ -64,6 +76,10 @@ namespace Afterward {
         #region Getters
         public float energy {
             get { return _energy; }
+            set {
+                _energy = Mathf.Max (0, value);
+                GuiManager.instance.UpdateEnergy ();
+            }
         }
         #endregion
 
@@ -96,15 +112,17 @@ namespace Afterward {
             */
 
             #region Movement
-            float h, v;
-            if (_speed == _dashSpeed) {
+            float h = 0, v = 0;
+            if (_isDashing) {
                 // Player is dashing
                 h = _dashDirection.x;
                 v = _dashDirection.z;
                 GameObject dashParticlesObject = Instantiate (_dashParticlesPrefab, transform.position, transform.rotation) as GameObject;
                 Destroy (dashParticlesObject, _dashParticlesDuration);
             }
-            else {
+            else if (_canMove) {
+            //if (!_isDashing) {
+                //float h, v;
                 // Normal move
                 h = Input.GetAxis ("Horizontal");
                 v = Input.GetAxis ("Vertical");
@@ -118,6 +136,7 @@ namespace Afterward {
             transform.position = newPos;
             // Physic hack to avoid player auto move
             GetComponent<Rigidbody> ().velocity = Vector3.zero;
+            //}
             #endregion
 
             #region Static rotation
@@ -144,7 +163,7 @@ namespace Afterward {
             }
             #endregion
 
-            #region Dash
+            /*#region Dash
             GamePadState state = GamePad.GetState (0);
             if (!_isDashing && state.Triggers.Left > 0 || Input.GetButton ("Dash")) {
                 StartCoroutine ("Dash");
@@ -153,10 +172,10 @@ namespace Afterward {
             else if (_isDashing && state.Triggers.Left == 0 || !Input.GetButton ("Dash")) {
                 _isDashing = false;
             }
-            #endregion
+            #endregion*/
 
             #region Shoot
-            if (!_isShooting && state.Triggers.Right > 0 || Input.GetButton ("Shoot")) {
+            /*if (!_isShooting && state.Triggers.Right > 0 || Input.GetButton ("Shoot")) {
                 StartCoroutine ("UpdateShoot");
                 _isShooting = true;
             }
@@ -165,7 +184,7 @@ namespace Afterward {
                 _vibrationRight = 0;
                 GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
                 _isShooting = false;
-            }
+            }*/
             #endregion
 
             #region Animation
@@ -186,8 +205,8 @@ namespace Afterward {
             }
             #endregion
 
-            #region Time scale reset
-            if (Input.GetButtonDown ("Time Down")) {
+            #region Time scale shortcut
+            /*if (Input.GetButtonDown ("Time Down")) {
                 if (Time.time - _lastTimeDownTap <= InputManager.instance.doubleTapDelay) {
                     TimeManager.instance.timeScale = TimeManager.instance.timeScaleMin;
                 }
@@ -202,24 +221,34 @@ namespace Afterward {
                 else {
                     _lastTimeUpTap = Time.time;
                 }
-            }
+            }*/
             #endregion
 
             #region Crystal cast
             if (Input.GetButtonDown ("Fire2")) {
-                ObjectPool.Spawn (_crystalPrefab, transform.position + transform.forward * _crystalDistance, Quaternion.identity);
+                PatternManager.instance.GenerateBottleNeck ();
             }
+            #endregion
+
+            #region Dash
+            if (_canDash && Input.GetButtonDown ("Dash")) {
+                StartCoroutine ("Dash");
+                
+            }
+            /*else if (_isDashing && !Input.GetButton ("Dash")) {
+                _isDashing = false;
+            }*/
             #endregion
         }
         #endregion
 
         #region Private properties
-        // Current player energy (%)
-        float _energy = 100;
-
         bool _isAttacking = false;
 
+        bool _canMove = true;
+
         bool _isDashing = false;
+        bool _canDash = true;
         float _lastDash = 0;
         Vector3 _dashDirection;
 
@@ -237,30 +266,63 @@ namespace Afterward {
 
         #region Private methods
         IEnumerator Attack () {
+            _canMove = false;
             _isAttacking = true;
+            _attackZone.SetActive (true);
+
+            SerializedObject so = new SerializedObject (_attackParticles);
+            /*/ Test
+            SerializedProperty it = so.GetIterator ();
+            while (it.Next (true))
+                Debug.Log (it.propertyPath);//*/
+            /*so.FindProperty ("").floatValue = _attackDuration;
+            so.ApplyModifiedProperties ();*/
             _attackParticles.Play ();
-            Collider[] colliders = Physics.OverlapSphere (transform.position, _attackRadius);
-            foreach (Collider collider in colliders) {
-                Rigidbody rb = collider.GetComponent<Rigidbody> ();
-                if (null != rb) rb.AddExplosionForce (_attackStrength, transform.position, _attackRadius);
-            }
+
+            yield return new WaitForSeconds (_attackDuration);
+            _canMove = true;
+            _attackZone.SetActive (false);
             yield return new WaitForSeconds (_attackCooldown);
             _isAttacking = false;
+            /*Collider[] colliders = Physics.OverlapSphere (transform.position, _attackRadius);
+            foreach (Collider collider in colliders) {
+                if ("Crystal" == collider.tag) {
+                    collider.Recycle ();
+                    energy++;
+                    continue;
+                }
+                Rigidbody rb = collider.GetComponent<Rigidbody> ();
+                if (null != rb) rb.AddExplosionForce (_attackStrength, transform.position, _attackRadius);
+            }*/
         }
 
         IEnumerator Dash () {
-            if (Time.time - _lastDash >= _dashDelay / TimeManager.instance.timeScale) {
-                _lastDash = Time.time;
-                _dashDirection = transform.forward;
-                float initialSpeed = _speed;
-                _speed = _dashSpeed;
-                _vibrationLeft = InputManager.instance.leftVibrationStrength;
-                GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
-                yield return new WaitForSeconds (_dashDuration / TimeManager.instance.timeScale);
-                _speed = initialSpeed;
-                _vibrationLeft = 0;
-                GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
-            }
+            //if (Time.time - _lastDash >= _dashDelay / TimeManager.instance.timeScale) {
+            Debug.Log ("prepare dash");
+            _canMove = false;
+            _canDash = false;
+            
+            float initialSpeed = _speed;
+            _speed = _dashSpeed;
+            yield return new WaitForSeconds (_dashStartDelay / TimeManager.instance.timeScale);
+            Debug.Log ("dash");
+            _isDashing = true;
+            _dashDirection = transform.forward;
+            _vibrationLeft = InputManager.instance.leftVibrationStrength;
+            GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
+            yield return new WaitForSeconds (_dashDuration / TimeManager.instance.timeScale);
+            Debug.Log ("rest");
+            _speed = initialSpeed;
+            _isDashing = false;
+            _vibrationLeft = 0;
+            GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
+            yield return new WaitForSeconds (_dashEndDelay / TimeManager.instance.timeScale);
+            Debug.Log ("end dashing"); 
+            _canMove = true;
+            _lastDash = Time.time;
+            yield return new WaitForSeconds (_dashDelay / TimeManager.instance.timeScale);
+            _canDash = true;
+            //}
         }
 
         /*void Shoot () {
@@ -278,7 +340,7 @@ namespace Afterward {
             SoundManager.instance.RandomizeSfx (_shootSFX);
         }*/
 
-        IEnumerator UpdateShoot () {
+        /*IEnumerator UpdateShoot () {
             _vibrationRight = InputManager.instance.rightVibrationStrength;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             do {
@@ -288,7 +350,7 @@ namespace Afterward {
                 }
                 yield return new WaitForSeconds (_shootDelay / TimeManager.instance.timeScale);
             } while (true);
-        }
+        }*/
         #endregion
     }
 }
