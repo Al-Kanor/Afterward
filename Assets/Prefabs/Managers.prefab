@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 473014}
-  - 114: {fileID: 11486858}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -594,28 +593,6 @@ MonoBehaviour:
   _timeScaleMax: 4
   _timeDownSpeed: .75
   _timeUpSpeed: 1.5
---- !u!114 &11486858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2ac4df84d211e440bdce26f13c7603d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _crystalHeight: .5
-  _b_distanceFromPlayer: 2
-  _b_distanceBetweenCrystals: 1
-  _b_initialSpace: 1.5
-  _b_angle: 45
-  _b_nbCrystalsByLine: 4
-  _a_distanceFromPlayer: 2
-  _a_distanceBetweenCrystals: .400000006
-  _a_radius: 4
-  _a_nbCrystals: 7
-  _crystalPrefab: {fileID: 0}
 --- !u!114 &11487106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,10 +610,10 @@ MonoBehaviour:
   _b_initialSpace: 1.5
   _b_angle: 45
   _b_nbCrystalsByLine: 4
-  _a_distanceFromPlayer: 1
-  _a_distanceBetweenCrystals: .200000003
+  _a_distanceFromPlayer: .829999983
+  _a_distanceBetweenCrystals: .100000001
   _a_radius: 4
-  _a_nbCrystals: 11
+  _a_nbCrystals: 21
   _crystalPrefab: {fileID: 113558, guid: 68d1e0cf4767d8a449866e3950d80c67, type: 2}
 --- !u!1001 &100100000
 Prefab:

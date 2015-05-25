@@ -248,7 +248,7 @@ namespace Afterward {
                 if (_canLaunchPattern) {
                     PatternManager pm = PatternManager.instance;
                     energy -= pm.Cost ("bottleneck");
-                    pm.GeneratePattern ("arc");
+                    pm.GeneratePattern ("bottleneck");
                 }
                 _patternLoadingParticles.Stop ();
                 _patternReadyParticles.Stop ();
