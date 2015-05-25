@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-//using UnityEditor;
+using UnityEditor;
 using System.Collections;
 using XInputDotNetPure;
 
@@ -49,6 +49,9 @@ namespace Afterward {
         [Tooltip ("")]
         float _attackRadius = 4;*/
         [SerializeField]
+        [Tooltip ("Distance traveled by the player while attacking (force)")]
+        float _attackStep = 20;
+        [SerializeField]
         [Tooltip ("Attack Duration")]
         float _attackDuration = 0.2f;
         [SerializeField]
@@ -60,6 +63,18 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Attack particles")]
         ParticleSystem _attackParticles;
+
+        [Header ("Crystal Patterns")]
+        [SerializeField]
+        [Tooltip ("Seconds between display of cursor")]
+        [Range (0, 5)]
+        float _patternStartDelay = 1;
+        [SerializeField]
+        [Tooltip ("Pattern loading particles")]
+        ParticleSystem _patternLoadingParticles;
+        [SerializeField]
+        [Tooltip ("Pattern ready particles")]
+        ParticleSystem _patternReadyParticles;
 
         /*[Header ("Shoot")]
         [SerializeField]
@@ -77,7 +92,7 @@ namespace Afterward {
         public float energy {
             get { return _energy; }
             set {
-                _energy = Mathf.Max (0, value);
+                _energy = Mathf.Clamp (value, 0, 99);
                 GuiManager.instance.UpdateEnergy ();
             }
         }
@@ -121,7 +136,7 @@ namespace Afterward {
                 Destroy (dashParticlesObject, _dashParticlesDuration);
             }
             else if (_canMove) {
-            //if (!_isDashing) {
+                //if (!_isDashing) {
                 //float h, v;
                 // Normal move
                 h = Input.GetAxis ("Horizontal");
@@ -224,16 +239,29 @@ namespace Afterward {
             }*/
             #endregion
 
-            #region Crystal cast
-            if (Input.GetButtonDown ("Fire2")) {
-                PatternManager.instance.GenerateBottleNeck ();
+            #region Crystal patterns
+            if (!_isLoadingPattern && Input.GetButtonDown ("Fire2")) {
+                StartCoroutine ("LaunchCrystalPattern");
+            }
+            else if (Input.GetButtonUp ("Fire2")) {
+                StopCoroutine ("LaunchCrystalPattern");
+                if (_canLaunchPattern) {
+                    PatternManager pm = PatternManager.instance;
+                    energy -= pm.Cost ("bottleneck");
+                    pm.GeneratePattern ("arc");
+                }
+                _patternLoadingParticles.Stop ();
+                _patternReadyParticles.Stop ();
+                _isLoadingPattern = false;
+                _canLaunchPattern = false;
+                _canMove = true;
             }
             #endregion
 
             #region Dash
             if (_canDash && Input.GetButtonDown ("Dash")) {
                 StartCoroutine ("Dash");
-                
+
             }
             /*else if (_isDashing && !Input.GetButton ("Dash")) {
                 _isDashing = false;
@@ -252,6 +280,9 @@ namespace Afterward {
         float _lastDash = 0;
         Vector3 _dashDirection;
 
+        bool _isLoadingPattern = false;
+        bool _canLaunchPattern = false;
+
         bool _isShooting = false;
         float _lastShoot = 0;
 
@@ -269,7 +300,7 @@ namespace Afterward {
             _canMove = false;
             _isAttacking = true;
             _attackZone.SetActive (true);
-
+            GetComponent<Rigidbody> ().AddForce (transform.forward * _attackStep);
             /*/ Test
             SerializedObject so = new SerializedObject (_attackParticles);
             SerializedProperty it = so.GetIterator ();
@@ -301,7 +332,7 @@ namespace Afterward {
             Debug.Log ("prepare dash");
             _canMove = false;
             _canDash = false;
-            
+
             float initialSpeed = _speed;
             _speed = _dashSpeed;
             yield return new WaitForSeconds (_dashStartDelay / TimeManager.instance.timeScale);
@@ -317,12 +348,23 @@ namespace Afterward {
             _vibrationLeft = 0;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             yield return new WaitForSeconds (_dashEndDelay / TimeManager.instance.timeScale);
-            Debug.Log ("end dashing"); 
+            Debug.Log ("end dashing");
             _canMove = true;
             _lastDash = Time.time;
             yield return new WaitForSeconds (_dashDelay / TimeManager.instance.timeScale);
             _canDash = true;
             //}
+        }
+
+        IEnumerator LaunchCrystalPattern () {
+            _isLoadingPattern = true;
+            _canMove = false;
+            _patternLoadingParticles.Play ();
+            yield return new WaitForSeconds (_patternStartDelay);
+            if (_energy >= PatternManager.instance.Cost ("bottleneck")) {
+                _patternReadyParticles.Play ();
+                _canLaunchPattern = true;
+            }
         }
 
         /*void Shoot () {
