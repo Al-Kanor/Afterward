@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3300684}
   - 23: {fileID: 2355836}
   - 111: {fileID: 11104240}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   - 4: {fileID: 405878}
   - 114: {fileID: 11400876}
   - 65: {fileID: 6568160}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Crystal
   m_TagString: Crystal
   m_Icon: {fileID: 0}

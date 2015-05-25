@@ -82,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &158920
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +108,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 404976}
   - 114: {fileID: 11487106}
-  - 114: {fileID: 11460792}
   m_Layer: 0
   m_Name: PatternManager
   m_TagString: Untagged
@@ -565,24 +564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackParticles: {fileID: 0}
---- !u!114 &11460792
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 159542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2ac4df84d211e440bdce26f13c7603d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _distanceFromPlayer: 2
-  _distanceBetweenCrystals: 1
-  _initialSpace: 1.5
-  _angle: 45
-  _nbCrystalsByLine: 4
-  _crystalHeight: .5
-  _crystalPrefab: {fileID: 113558, guid: 68d1e0cf4767d8a449866e3950d80c67, type: 2}
 --- !u!114 &11476506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -624,12 +605,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ac4df84d211e440bdce26f13c7603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceFromPlayer: 2
-  _distanceBetweenCrystals: 1
-  _initialSpace: 1.5
-  _angle: 90
-  _nbCrystalsByLine: 4
   _crystalHeight: .5
+  _b_distanceFromPlayer: 2
+  _b_distanceBetweenCrystals: 1
+  _b_initialSpace: 1.5
+  _b_angle: 45
+  _b_nbCrystalsByLine: 4
+  _a_distanceFromPlayer: 2
+  _a_distanceBetweenCrystals: .400000006
+  _a_radius: 4
+  _a_nbCrystals: 7
   _crystalPrefab: {fileID: 0}
 --- !u!114 &11487106
 MonoBehaviour:
@@ -642,12 +627,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ac4df84d211e440bdce26f13c7603d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceFromPlayer: 2
-  _distanceBetweenCrystals: 1
-  _initialSpace: 1.5
-  _angle: 45
-  _nbCrystalsByLine: 4
   _crystalHeight: .5
+  _b_distanceFromPlayer: 2
+  _b_distanceBetweenCrystals: 1
+  _b_initialSpace: 1.5
+  _b_angle: 45
+  _b_nbCrystalsByLine: 4
+  _a_distanceFromPlayer: 1
+  _a_distanceBetweenCrystals: .200000003
+  _a_radius: 4
+  _a_nbCrystals: 11
   _crystalPrefab: {fileID: 113558, guid: 68d1e0cf4767d8a449866e3950d80c67, type: 2}
 --- !u!1001 &100100000
 Prefab:
