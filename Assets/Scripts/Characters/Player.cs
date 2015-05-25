@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using System.Collections;
 using XInputDotNetPure;
 
@@ -270,8 +270,8 @@ namespace Afterward {
             _isAttacking = true;
             _attackZone.SetActive (true);
 
-            SerializedObject so = new SerializedObject (_attackParticles);
             /*/ Test
+            SerializedObject so = new SerializedObject (_attackParticles);
             SerializedProperty it = so.GetIterator ();
             while (it.Next (true))
                 Debug.Log (it.propertyPath);//*/

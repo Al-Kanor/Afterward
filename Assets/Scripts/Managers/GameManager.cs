@@ -63,8 +63,17 @@ namespace Afterward {
 
         #region Unity
         void Start () {
+            if (InputManager.instance.joystickConnected) {
+                Cursor.visible = false;
+            }
             _score = PlayerPrefs.GetInt ("score");
             GuiManager.instance.UpdateAll ();
+        }
+
+        void Update () {
+            if (Input.GetKeyDown (KeyCode.Escape)) {
+                Application.Quit ();
+            }
         }
         #endregion
 
