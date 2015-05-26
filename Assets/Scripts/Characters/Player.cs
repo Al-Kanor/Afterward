@@ -66,6 +66,9 @@ namespace Afterward {
 
         [Header ("Crystal Patterns")]
         [SerializeField]
+        [Tooltip ("Default pattern launched (bottleneck or arc)")]
+        string _defaultPattern = "bottleneck";
+        [SerializeField]
         [Tooltip ("Seconds between display of cursor")]
         [Range (0, 5)]
         float _patternStartDelay = 1;
@@ -240,15 +243,19 @@ namespace Afterward {
             #endregion
 
             #region Crystal patterns
-            if (!_isLoadingPattern && Input.GetButtonDown ("Fire2")) {
+            if (Input.GetButtonDown ("Switch Pattern")) {
+                _defaultPattern = "arc" == _defaultPattern ? "bottleneck" : "arc";
+            }
+
+            if (!_isLoadingPattern && Input.GetButtonDown ("Crystal Pattern")) {
                 StartCoroutine ("LaunchCrystalPattern");
             }
-            else if (Input.GetButtonUp ("Fire2")) {
+            else if (Input.GetButtonUp ("Crystal Pattern")) {
                 StopCoroutine ("LaunchCrystalPattern");
                 if (_canLaunchPattern) {
                     PatternManager pm = PatternManager.instance;
-                    energy -= pm.Cost ("bottleneck");
-                    pm.GeneratePattern ("bottleneck");
+                    energy -= pm.Cost (_defaultPattern);
+                    pm.GeneratePattern (_defaultPattern);
                 }
                 _patternLoadingParticles.Stop ();
                 _patternReadyParticles.Stop ();
@@ -361,7 +368,7 @@ namespace Afterward {
             _canMove = false;
             _patternLoadingParticles.Play ();
             yield return new WaitForSeconds (_patternStartDelay);
-            if (_energy >= PatternManager.instance.Cost ("bottleneck")) {
+            if (_energy >= PatternManager.instance.Cost (_defaultPattern)) {
                 _patternReadyParticles.Play ();
                 _canLaunchPattern = true;
             }

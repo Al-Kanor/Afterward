@@ -2079,6 +2079,14 @@ Prefab:
       propertyPath: _b_distanceBetweenCrystals
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11487106, guid: 9c56c0a73ef60b744ab0f64b62f2cb56, type: 2}
+      propertyPath: _a_distanceBetweenCrystals
+      value: .400000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 11487106, guid: 9c56c0a73ef60b744ab0f64b62f2cb56, type: 2}
+      propertyPath: _a_nbCrystals
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c56c0a73ef60b744ab0f64b62f2cb56, type: 2}
   m_IsPrefabParent: 0

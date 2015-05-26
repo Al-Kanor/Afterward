@@ -93,19 +93,17 @@ namespace Afterward {
             float angle = Mathf.Asin (_a_distanceBetweenCrystals / _a_radius * 2) * Mathf.Rad2Deg;
             GameObject currentCrystal;
             float x, z;
-            int factor = -1;
-            for (int i = 0; i < _a_nbCrystals; ++i) {
+            int factor;
+            for (int i = 0; i <= _a_nbCrystals / 2; ++i) {
                 x = p.transform.position.x;
                 z = p.transform.position.z +_a_radius;
-                currentCrystal = ObjectPool.Spawn (_crystalPrefab, new Vector3 (x, _crystalHeight, z), Quaternion.identity);
-                if (1 == i % 2) {
+                factor = -1;
+                for (int j = 0; j < 2; ++j) {
+                    currentCrystal = ObjectPool.Spawn (_crystalPrefab, new Vector3 (x, _crystalHeight, z), Quaternion.identity);
                     currentCrystal.transform.RotateAround (p.transform.position + Vector3.forward * _a_distanceFromPlayer, p.transform.up, angle * i * factor);
+                    currentCrystal.transform.RotateAround (p.transform.position, p.transform.up, p.transform.rotation.eulerAngles.y);
+                    factor *= -1;
                 }
-                else {
-                    currentCrystal.transform.RotateAround (p.transform.position + Vector3.forward * _a_distanceFromPlayer, p.transform.up, angle * i * factor);
-                }
-                currentCrystal.transform.RotateAround (p.transform.position, p.transform.up, p.transform.rotation.eulerAngles.y);
-                factor *= -1;
             }
             /*Collider[] colliders = Physics.OverlapSphere (p.transform.position, 100);
             foreach (Collider collider in colliders) {
