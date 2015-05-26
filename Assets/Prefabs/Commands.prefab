@@ -43,7 +43,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "LStick - Move\rment\nRStick - Rotation\r\nA - Dash\r\r\nB - Pattern\nX
-    - Attack\r\nEscape - Exit"
+    - Attack\r\nY - Switch patterns\nEscape - Exit"
 --- !u!222 &22284058
 CanvasRenderer:
   m_ObjectHideFlags: 1
