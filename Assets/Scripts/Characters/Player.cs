@@ -231,9 +231,9 @@ namespace Afterward {
             #endregion
         }
 
-        void Start () {
-            transform.position = new Vector3 (Random.Range (-20, 20), 0.5f, Random.Range (-20, 20));
-        }
+        /*void Start () {
+            //transform.position = new Vector3 (Random.Range (-20, 20), 0.5f, Random.Range (-20, 20));
+        }*/
 
         void Update () {
             #region Attack

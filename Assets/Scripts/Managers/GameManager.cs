@@ -74,6 +74,10 @@ namespace Afterward {
             if (Input.GetKeyDown (KeyCode.Escape)) {
                 Application.Quit ();
             }
+
+            if (Input.GetButtonDown ("Restart")) {
+                Application.LoadLevel (Application.loadedLevel);
+            }
         }
         #endregion
 
