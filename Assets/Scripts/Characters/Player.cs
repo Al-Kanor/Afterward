@@ -38,6 +38,9 @@ namespace Afterward {
         [Range (0.0f, 5.0f)]
         float _dashParticlesDuration = 1;
         [SerializeField]
+        [Tooltip ("Dash line")]
+        LineRenderer _dashLine;
+        [SerializeField]
         [Tooltip ("Dash particles")]
         GameObject _dashParticlesPrefab;
 
@@ -338,12 +341,13 @@ namespace Afterward {
             Debug.Log ("prepare dash");
             _canMove = false;
             _canDash = false;
-            Debug.DrawLine (transform.position, transform.position + transform.forward * 4, Color.red, _dashStartDelay);
+            _dashLine.SetPosition (1, new Vector3 (0, transform.rotation.eulerAngles.y, 3));
             float initialSpeed = _speed;
             _speed = _dashSpeed;
             yield return new WaitForSeconds (_dashStartDelay / TimeManager.instance.timeScale);
             Debug.Log ("dash");
             _isDashing = true;
+            GetComponent<CapsuleCollider> ().enabled = false;
             _dashDirection = transform.forward;
             _vibrationLeft = InputManager.instance.leftVibrationStrength;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
@@ -351,6 +355,7 @@ namespace Afterward {
             Debug.Log ("rest");
             _speed = initialSpeed;
             _isDashing = false;
+            GetComponent<CapsuleCollider> ().enabled = true;
             _vibrationLeft = 0;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             yield return new WaitForSeconds (_dashEndDelay / TimeManager.instance.timeScale);
