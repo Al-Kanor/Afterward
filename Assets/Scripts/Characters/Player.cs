@@ -335,11 +335,10 @@ namespace Afterward {
         }
 
         IEnumerator Dash () {
-            //if (Time.time - _lastDash >= _dashDelay / TimeManager.instance.timeScale) {
             Debug.Log ("prepare dash");
             _canMove = false;
             _canDash = false;
-
+            Debug.DrawLine (transform.position, transform.position + transform.forward * 4, Color.red, _dashStartDelay);
             float initialSpeed = _speed;
             _speed = _dashSpeed;
             yield return new WaitForSeconds (_dashStartDelay / TimeManager.instance.timeScale);
@@ -360,7 +359,6 @@ namespace Afterward {
             _lastDash = Time.time;
             yield return new WaitForSeconds (_dashDelay / TimeManager.instance.timeScale);
             _canDash = true;
-            //}
         }
 
         IEnumerator LaunchCrystalPattern () {
