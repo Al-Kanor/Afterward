@@ -52,8 +52,11 @@ namespace Afterward {
         [Tooltip ("")]
         float _attackRadius = 4;*/
         [SerializeField]
-        [Tooltip ("Distance traveled by the player while attacking (force)")]
-        float _attackStep = 20;
+        [Tooltip ("Distance traveled by the player while attacking")]
+        float _attackStepDist = 1;
+        [SerializeField]
+        [Tooltip ("Speed of the player while attacking")]
+        float _attackStepSpeed = 10;
         [SerializeField]
         [Tooltip ("Attack Duration")]
         float _attackDuration = 0.2f;
@@ -310,7 +313,8 @@ namespace Afterward {
             _canMove = false;
             _isAttacking = true;
             _attackZone.SetActive (true);
-            GetComponent<Rigidbody> ().AddForce (transform.forward * _attackStep);
+            //GetComponent<Rigidbody> ().AddForce (transform.forward * _attackStep);
+            StartCoroutine ("AttackStep");
             /*/ Test
             SerializedObject so = new SerializedObject (_attackParticles);
             SerializedProperty it = so.GetIterator ();
@@ -335,6 +339,14 @@ namespace Afterward {
                 Rigidbody rb = collider.GetComponent<Rigidbody> ();
                 if (null != rb) rb.AddExplosionForce (_attackStrength, transform.position, _attackRadius);
             }*/
+        }
+
+        IEnumerator AttackStep () {
+            Vector3 targetPos = transform.position + transform.forward * _attackStepDist;
+            do {
+                transform.position = Vector3.Lerp (transform.position, targetPos, _attackStepSpeed * Time.fixedDeltaTime);
+                yield return new WaitForFixedUpdate ();
+            } while (Vector3.Distance (transform.position, targetPos) > 0.1f);
         }
 
         IEnumerator Dash () {
