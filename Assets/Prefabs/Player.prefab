@@ -1134,17 +1134,20 @@ MonoBehaviour:
   _armLength: .899999976
   _bulletPrefab: {fileID: 160894, guid: 6273420bde562634795943debff1521c, type: 2}
   _shootSFX: {fileID: 8300000, guid: 9afddb7a97a9a574195c77af436c65cd, type: 3}
+  _ps: {fileID: 0}
   _animation: {fileID: 11193192}
   _energy: 99
   _dashSpeed: 48
-  _dashDuration: .150000006
+  _dashAcceleration: 3.80999994
+  _dashDuration: .286000013
   _dashDelay: 1
   _dashStartDelay: .5
   _dashEndDelay: .699999988
   _dashParticlesDuration: 1
   _dashLine: {fileID: 12090456}
   _dashParticlesPrefab: {fileID: 163758, guid: 39c0dc96f014b2f4bad2558bd7617242, type: 2}
-  _attackStep: 3000
+  _attackStepDist: 1
+  _attackStepSpeed: 10
   _attackDuration: .200000003
   _attackCooldown: .400000006
   _attackZone: {fileID: 116294}

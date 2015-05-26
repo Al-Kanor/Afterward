@@ -12,15 +12,20 @@ namespace Afterward {
         [Range (0, 100)]
         float _energy = 20;
 
+        #region Dash
         [Header ("Dash")]
         [SerializeField]
-        [Tooltip ("Speed while dashing (a too high value can let the player dash trough walls)")]
+        [Tooltip ("Speed while dashing")]
         [Range (0.0f, 100.0f)]
         float _dashSpeed = 48;
         [SerializeField]
+        [Tooltip ("Acceleration while dashing")]
+        [Range (0.0f, 10.0f)]
+        float _dashAcceleration = 3.81f;
+        [SerializeField]
         [Tooltip ("Duration of a dash")]
         [Range (0.0f, 1.0f)]
-        float _dashDuration = 0.12f;
+        float _dashDuration = 0.28f;
         [SerializeField]
         [Tooltip ("Seconds between two dashes")]
         [Range (0.0f, 3.0f)]
@@ -43,7 +48,9 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Dash particles")]
         GameObject _dashParticlesPrefab;
+        #endregion
 
+        #region Physical attack
         [Header ("Physical Attack")]
         /*[SerializeField]
         [Tooltip ("")]
@@ -69,7 +76,9 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Attack particles")]
         ParticleSystem _attackParticles;
+        #endregion
 
+        #region Crystal patterns
         [Header ("Crystal Patterns")]
         [SerializeField]
         [Tooltip ("Default pattern launched (bottleneck or arc)")]
@@ -84,12 +93,15 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Pattern ready particles")]
         ParticleSystem _patternReadyParticles;
+        #endregion
 
+        #region Shoot
         /*[Header ("Shoot")]
         [SerializeField]
         [Tooltip ("Seconds between two shoots")]
         [Range (0.0f, 1.0f)]
         float _shootDelay = 0.1f;*/
+        #endregion
 
         [Header ("Links")]
         [SerializeField]
@@ -139,6 +151,7 @@ namespace Afterward {
             float h = 0, v = 0;
             if (_isDashing) {
                 // Player is dashing
+                _speed = Mathf.Min (_speed + _dashAcceleration, _dashSpeed);
                 h = _dashDirection.x;
                 v = _dashDirection.z;
                 GameObject dashParticlesObject = Instantiate (_dashParticlesPrefab, transform.position, transform.rotation) as GameObject;
@@ -358,16 +371,18 @@ namespace Afterward {
             _canDash = false;
             _dashLine.SetPosition (1, new Vector3 (0, transform.rotation.eulerAngles.y, 3));
             float initialSpeed = _speed;
-            _speed = _dashSpeed;
+            //_speed = _dashSpeed;
             yield return new WaitForSeconds (_dashStartDelay / TimeManager.instance.timeScale);
             Debug.Log ("dash");
             _isDashing = true;
+            Camera.main.GetComponent<DashingCamera> ().StartCoroutine ("StartRecoil");
             GetComponent<CapsuleCollider> ().enabled = false;
             _dashDirection = transform.forward;
             _vibrationLeft = InputManager.instance.leftVibrationStrength;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             yield return new WaitForSeconds (_dashDuration / TimeManager.instance.timeScale);
             Debug.Log ("rest");
+            Camera.main.GetComponent<DashingCamera> ().StartCoroutine ("StopRecoil");
             _speed = initialSpeed;
             _isDashing = false;
             GetComponent<CapsuleCollider> ().enabled = true;
