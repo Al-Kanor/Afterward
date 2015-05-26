@@ -8,11 +8,11 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Camera recoil")]
         [Range (0, 180)]
-        float _recoil = 86;
+        float _recoil = 80;
         [SerializeField]
         [Tooltip ("Recoil speed")]
         [Range (0, 10)]
-        float _recoilSpeed = 6;
+        float _recoilSpeed = 5;
         #endregion
 
         #region Unity

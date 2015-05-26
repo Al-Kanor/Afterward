@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nbEnemiesMax: 10
-  _spawnDelay: 5
+  _spawnDelay: 3
   _spawnXMin: -20
   _spawnXMax: 20
   _spawnZMin: -20
@@ -606,14 +606,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crystalHeight: .5
   _b_distanceFromPlayer: 2
-  _b_distanceBetweenCrystals: 1
+  _b_distanceBetweenCrystals: .5
   _b_initialSpace: 1.5
   _b_angle: 45
-  _b_nbCrystalsByLine: 4
+  _b_nbCrystalsByLine: 10
   _a_distanceFromPlayer: .829999983
-  _a_distanceBetweenCrystals: .100000001
+  _a_distanceBetweenCrystals: .400000006
   _a_radius: 4
-  _a_nbCrystals: 21
+  _a_nbCrystals: 7
   _crystalPrefab: {fileID: 113558, guid: 68d1e0cf4767d8a449866e3950d80c67, type: 2}
 --- !u!1001 &100100000
 Prefab:

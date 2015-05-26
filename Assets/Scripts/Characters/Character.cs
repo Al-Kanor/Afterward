@@ -51,7 +51,7 @@ namespace Afterward {
                 _health = value;
                 if (0 == _health) {
                     GameManager.instance.enemies.Remove (this);
-                    gameObject.Recycle ();
+                    StartCoroutine ("Die");
                 }
             }
         }
@@ -91,7 +91,12 @@ namespace Afterward {
         #endregion
 
         #region Private methods
-        
+        IEnumerator Die () {
+            GetComponent<CapsuleCollider> ().enabled = false;
+            GetComponent<MeshRenderer> ().enabled = false;
+            yield return new WaitForSeconds (1);
+            gameObject.Recycle ();
+        }
         #endregion
     }
 }

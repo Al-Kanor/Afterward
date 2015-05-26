@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11455224}
   - 114: {fileID: 11441468}
   - 20: {fileID: 2078976}
+  - 114: {fileID: 11400344}
   - 92: {fileID: 9215938}
   - 124: {fileID: 12405956}
   - 45: {fileID: 4513782}
@@ -19,7 +20,6 @@ GameObject:
   - 111: {fileID: 11133670}
   - 114: {fileID: 11404864}
   - 114: {fileID: 11435878}
-  - 114: {fileID: 11400344}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdaffecaa7a941d448d71fdb52c64108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoil: 140
-  _recoilSpeed: .400000006
+  _recoil: 80
+  _recoilSpeed: 5
 --- !u!114 &11404864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 6
-  _height: 5.30000019
-  _distance: 5.9000001
+  _height: 6
+  _distance: 9
   _target: {fileID: 0}
 --- !u!114 &11465672
 MonoBehaviour:

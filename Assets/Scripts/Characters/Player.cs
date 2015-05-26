@@ -10,14 +10,14 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Energy of the player")]
         [Range (0, 100)]
-        float _energy = 20;
+        float _energy = 99;
 
         #region Dash
         [Header ("Dash")]
         [SerializeField]
         [Tooltip ("Speed while dashing")]
         [Range (0.0f, 100.0f)]
-        float _dashSpeed = 48;
+        float _dashSpeed = 50;
         [SerializeField]
         [Tooltip ("Acceleration while dashing")]
         [Range (0.0f, 10.0f)]
@@ -29,15 +29,15 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Seconds between two dashes")]
         [Range (0.0f, 3.0f)]
-        float _dashDelay = 1f;
+        float _dashDelay = 0.1f;
         [SerializeField]
         [Tooltip ("Delay when player starts dashing")]
         [Range (0.0f, 1.0f)]
-        float _dashStartDelay = 0.24f;
+        float _dashStartDelay = 0.1f;
         [SerializeField]
         [Tooltip ("Delay when player ends dashing")]
         [Range (0.0f, 1.0f)]
-        float _dashEndDelay = 0.24f;
+        float _dashEndDelay = 0.4f;
         [SerializeField]
         [Tooltip ("Duration of the particles emitted by a dash")]
         [Range (0.0f, 5.0f)]
@@ -66,10 +66,10 @@ namespace Afterward {
         float _attackStepSpeed = 10;
         [SerializeField]
         [Tooltip ("Attack Duration")]
-        float _attackDuration = 0.2f;
+        float _attackDuration = 0.18f;
         [SerializeField]
         [Tooltip ("Attack Cooldown")]
-        float _attackCooldown = 1;
+        float _attackCooldown = 0.18f;
         [SerializeField]
         [Tooltip ("Attack zone")]
         GameObject _attackZone;
@@ -86,7 +86,7 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Seconds between display of cursor")]
         [Range (0, 5)]
-        float _patternStartDelay = 1;
+        float _patternStartDelay = 0.5f;
         [SerializeField]
         [Tooltip ("Pattern loading particles")]
         ParticleSystem _patternLoadingParticles;

@@ -8,15 +8,15 @@ namespace Afterward {
         [SerializeField]
         [Tooltip ("Speed of the camera")]
         [Range (0.0f, 100.0f)]
-        float _speed = 10;
+        float _speed = 6;
         [SerializeField]
         [Tooltip ("Height from the target")]
         [Range (0.0f, 100.0f)]
-        float _height = 4.28f;
+        float _height = 6;
         [SerializeField]
         [Tooltip ("Distance from the target")]
         [Range (0.0f, 100.0f)]
-        float _distance = 4.58f;
+        float _distance = 9;
         [SerializeField]
         [Tooltip ("Target to follow")]
         Transform _target;    // Target to follow
