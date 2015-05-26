@@ -38,7 +38,7 @@ namespace Afterward {
 
         #region Unity
         void FixedUpdate () {
-            transform.Rotate (transform.up * _rotationSpeed * Time.fixedDeltaTime);
+            transform.GetChild(0).transform.Rotate (transform.up * _rotationSpeed * Time.fixedDeltaTime);
 
             /*if (Vector3.Distance (GetComponent<Rigidbody> ().velocity, Vector3.zero) > 0) {
                 gameObject.Recycle ();

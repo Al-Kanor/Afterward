@@ -343,10 +343,13 @@ namespace Afterward {
 
         IEnumerator AttackStep () {
             Vector3 targetPos = transform.position + transform.forward * _attackStepDist;
+            float targetTime = _attackStepDist / _attackStepSpeed;
             do {
                 transform.position = Vector3.Lerp (transform.position, targetPos, _attackStepSpeed * Time.fixedDeltaTime);
                 yield return new WaitForFixedUpdate ();
-            } while (Vector3.Distance (transform.position, targetPos) > 0.1f);
+            //} while (Vector3.Distance (transform.position, targetPos) > 0.1f);
+                targetTime -= Time.fixedDeltaTime;
+            } while (targetTime > 0);
         }
 
         IEnumerator Dash () {

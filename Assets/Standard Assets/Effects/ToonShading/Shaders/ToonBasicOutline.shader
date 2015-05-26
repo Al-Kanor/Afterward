@@ -40,7 +40,7 @@ Shader "Toon/Basic Outline" {
 
 	SubShader {
 		Tags { "RenderType"="Opaque" }
-		//UsePass "Toon/Basic/BASE"
+		UsePass "Toon/Basic/BASE"
 		Pass {
 			Name "OUTLINE"
 			Tags { "LightMode" = "Always" }

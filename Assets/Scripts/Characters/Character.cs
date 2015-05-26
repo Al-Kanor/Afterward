@@ -34,6 +34,9 @@ namespace Afterward {
 
         [Header ("Links")]
         [SerializeField]
+        [Tooltip ("")]
+        protected ParticleSystem _ps = null;
+        [SerializeField]
         [Tooltip ("Animation of the character (drag & drop the character model in child)")]
         protected Animation _animation;
         #endregion
@@ -71,6 +74,10 @@ namespace Afterward {
 
         public virtual void TakeDamage (int damage) {
             health = Mathf.Clamp (_health, 0, _health - damage);
+            if (null != _ps) _ps.Play ();
+            Animation anim = Camera.main.GetComponent<Animation> ();
+            anim.Play ();
+            Camera.main.GetComponent<camerashake> ().StartCoroutine ("StartShake");
         }
         #endregion
 
