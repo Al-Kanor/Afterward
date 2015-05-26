@@ -491,7 +491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nbEnemiesMax: 10
-  _spawnDelay: 3
+  _spawnDelay: .5
   _spawnXMin: -20
   _spawnXMax: 20
   _spawnZMin: -20

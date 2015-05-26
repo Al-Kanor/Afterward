@@ -11,7 +11,7 @@ namespace Afterward {
         int _cameraWeight = 1;
         [SerializeField]
         [Tooltip ("Life points of the character")]
-        [Range (0.0f, 1000.0f)]
+        [Range (1, 1000)]
         protected int _health = 100;
         [SerializeField]
         [Tooltip ("Speed of the character")]

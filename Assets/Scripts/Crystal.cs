@@ -7,7 +7,7 @@ namespace Afterward {
         [Header ("General")]
         [SerializeField]
         [Tooltip ("Health")]
-        [Range (0, 50)]
+        [Range (1, 50)]
         int _health = 20;
         [SerializeField]
         [Tooltip ("Rotation speed")]

@@ -170,9 +170,10 @@ namespace Afterward {
             if (InputManager.instance.joystickConnected) {
                 transform.LookAt (newPos);
             }
-            transform.position = newPos;
+            //transform.position = newPos;
+            GetComponent<Rigidbody> ().MovePosition (newPos);
             // Physic hack to avoid player auto move
-            GetComponent<Rigidbody> ().velocity = Vector3.zero;
+            //GetComponent<Rigidbody> ().velocity = Vector3.zero;
             //}
             #endregion
 

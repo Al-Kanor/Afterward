@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f04af95129a4fb43a938a5f0e801f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 20
+  _health: 1
   _rotationSpeed: 100
   _collectible: {fileID: 186016, guid: 04ef77ef1935f854291805438ab19ffb, type: 2}
 --- !u!198 &19819872
