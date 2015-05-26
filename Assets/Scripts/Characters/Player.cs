@@ -366,14 +366,13 @@ namespace Afterward {
         }
 
         IEnumerator Dash () {
-            Debug.Log ("prepare dash");
+            //Debug.Log ("prepare dash");
             _canMove = false;
             _canDash = false;
-            _dashLine.SetPosition (1, new Vector3 (0, transform.rotation.eulerAngles.y, 3));
+            //_dashLine.SetPosition (1, new Vector3 (0, transform.rotation.eulerAngles.y, 3));
             float initialSpeed = _speed;
-            //_speed = _dashSpeed;
             yield return new WaitForSeconds (_dashStartDelay / TimeManager.instance.timeScale);
-            Debug.Log ("dash");
+            //Debug.Log ("dash");
             _isDashing = true;
             Camera.main.GetComponent<DashingCamera> ().StartCoroutine ("StartRecoil");
             GetComponent<CapsuleCollider> ().enabled = false;
@@ -381,7 +380,7 @@ namespace Afterward {
             _vibrationLeft = InputManager.instance.leftVibrationStrength;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             yield return new WaitForSeconds (_dashDuration / TimeManager.instance.timeScale);
-            Debug.Log ("rest");
+            //Debug.Log ("rest");
             Camera.main.GetComponent<DashingCamera> ().StartCoroutine ("StopRecoil");
             _speed = initialSpeed;
             _isDashing = false;
@@ -389,7 +388,7 @@ namespace Afterward {
             _vibrationLeft = 0;
             GamePad.SetVibration (0, _vibrationLeft, _vibrationRight);
             yield return new WaitForSeconds (_dashEndDelay / TimeManager.instance.timeScale);
-            Debug.Log ("end dashing");
+            //Debug.Log ("end dashing");
             _canMove = true;
             _lastDash = Time.time;
             yield return new WaitForSeconds (_dashDelay / TimeManager.instance.timeScale);

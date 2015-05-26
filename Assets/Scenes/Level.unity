@@ -519,8 +519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdaffecaa7a941d448d71fdb52c64108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoil: 140
-  _recoilSpeed: 50
+  _recoil: 86
+  _recoilSpeed: 6
 --- !u!1 &700789403
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +860,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 158920, guid: 9c56c0a73ef60b744ab0f64b62f2cb56, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c56c0a73ef60b744ab0f64b62f2cb56, type: 2}
@@ -943,6 +943,10 @@ Prefab:
     - target: {fileID: 22414058, guid: df85369d8f5d29549b4fdb5bf1543823, type: 2}
       propertyPath: m_Pivot.y
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 134916, guid: df85369d8f5d29549b4fdb5bf1543823, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: df85369d8f5d29549b4fdb5bf1543823, type: 2}
@@ -1895,6 +1899,10 @@ Prefab:
     - target: {fileID: 22457434, guid: 1fbba155c34df154398a3eb59a592b2c, type: 2}
       propertyPath: m_Pivot.y
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 196146, guid: 1fbba155c34df154398a3eb59a592b2c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1fbba155c34df154398a3eb59a592b2c, type: 2}
